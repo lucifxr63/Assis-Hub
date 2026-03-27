@@ -1,0 +1,20 @@
+[build]
+  command   = "pnpm build"
+  publish   = ".next"
+
+[build.environment]
+  # Node version — debe coincidir con el que usas en local
+  NODE_VERSION = "20"
+
+# Plugin oficial de Netlify para Next.js (SSR + API routes)
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# ─── Variables de entorno para producción ──────────────────────────────────────
+# NO pongas valores secretos aquí. Configúralos en:
+# Netlify UI → Site → Environment variables
+#
+# Variables requeridas:
+#   NEXT_PUBLIC_API_URL   → URL del middleware backend en producción
+#                           (ej: https://app.customware.cl)
+#   NEXT_PUBLIC_USE_MOCK  → false  (siempre false en producción)
