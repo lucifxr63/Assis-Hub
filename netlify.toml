@@ -10,6 +10,15 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+# ─── Redirects ────────────────────────────────────────────────────────────────
+# El middleware redirige a /login?error=... tras un OAuth fallido.
+# El frontend es un SPA en / — redirigimos todo /login/* hacia /
+# Netlify pasa los query params automáticamente (error=USER_NOT_FOUND, etc.)
+[[redirects]]
+  from   = "/login"
+  to     = "/"
+  status = 302
+
 # ─── Variables de entorno para producción ──────────────────────────────────────
 # NO pongas valores secretos aquí. Configúralos en:
 # Netlify UI → Site → Environment variables
