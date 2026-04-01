@@ -91,8 +91,14 @@ export async function getMe(): Promise<AuthMeResponse | null> {
     return null
   }
 
+  // NOTE: getMe() does NOT use apiFetch() intentionally.
+  // apiFetch() redirects on 401, which would cause an infinite reload loop
+  // since this function is called on every page load to check the session.
+  // A 401 here simply means "no session" → return null → show login.
   try {
-    return await apiFetch<AuthMeResponse>("/auth/me")
+    const res = await fetch(`${API_URL}/auth/me`, { credentials: "include" })
+    if (!res.ok) return null
+    return res.json()
   } catch {
     return null
   }
